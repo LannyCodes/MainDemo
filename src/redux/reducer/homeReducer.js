@@ -3,10 +3,14 @@
  */
 
 import ActionType from '../actionTypes';
-import {combineReducers} from 'redux';
+// import {combineReducers} from 'redux';
+
+import {fromJS} from 'immutable'
+
+const defaultState = fromJS([]);
 
 //初始值
-function homeListData(state = [], action) {
+export function homeListData(state = defaultState, action) {
     switch (action.type) {
         case ActionType.HOME_LIST:
             return state.concat(action.listData);
@@ -15,7 +19,4 @@ function homeListData(state = [], action) {
     }
 }
 
-export default combineReducers({
-    homeListData,
-})
 

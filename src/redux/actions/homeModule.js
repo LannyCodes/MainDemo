@@ -9,19 +9,19 @@ import Urls from '../../server/urls';
  * 首页列表数据
  * @param listData
  */
-/*export const setHomeList = (listData) => (dispatch) => {
+export const setHomeList = (listData) => (dispatch) => {
     dispatch({
         type: ActionType.HOME_LIST,
         listData: listData
     })
 
-};*/
+};
 
-export const setHomeList = (listData) => (dispatch) => new Promise((resolve, reject) => {
-    dispatch({
-        type: ActionType.HOME_LIST,
-        listData: listData
-    })
-
-});
+// export const setHomeList = (listData) => (dispatch) => new Promise((resolve, reject) => {
+//     dispatch({
+//         type: ActionType.HOME_LIST,
+//         listData: listData
+//     })
+//
+// });
 

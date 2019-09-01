@@ -22,6 +22,7 @@ import Urls from '../server/urls';
 import TimeoutFetch from "../server/TimeoutFetch";
 import {setHomeList} from '../redux/actions/homeModule'
 import {connect} from "react-redux";
+import {fromJS, is, List} from 'immutable'
 
 class HomeScreen extends Component {
 
@@ -62,7 +63,7 @@ class HomeScreen extends Component {
                             allowLoadMore: false,
                         })
                     }
-                    this.props.setHomeList(response.datas);
+                    this.props.setHomeList(fromJS(response.datas));//获取到数据第一时间转换成Immutable类型
                     //
                 } else {
                     //没有更多
@@ -115,7 +116,6 @@ class HomeScreen extends Component {
         )
     }
 
-
     _renderItem = ({item}) => {
         return (
             <View style={styles.itemContainer}>
@@ -149,6 +149,32 @@ class HomeScreen extends Component {
         this._fetchServer();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        const thisProps = this.props || {};
+        const thisState = this.state || {};
+        nextState = nextState || {};
+        nextProps = nextProps || {};
+        if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
+            Object.keys(thisState).length !== Object.keys(nextState).length) {
+            return true;
+        }
+
+        for (const key in nextProps) {
+            if (!is(thisProps[key], nextProps[key])) {
+                return true;
+            }
+        }
+        for (const key in nextState) {
+            if (!is(thisState[key], nextState[key])) {
+                return true;
+            }
+        }
+        return false;
+        // let rusult1 = !is(List(thisProps.homeListData), List(nextProps.homeListData));
+        // let rusult2 = !is(Immutable.Map(this.props.item[0]), Immutable.Map(nextProps.item[0]));
+        // return rusult1 || rusult2;
+    }
+
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
@@ -173,14 +199,14 @@ class HomeScreen extends Component {
 
 function mapStateToProps(state) {
     return {
-        homeListData: state.homeReducer.homeListData,
+        homeListData: state.getIn(['homeListData']).toJS(),
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setHomeList: (lists) => setHomeList(lists)(dispatch),
-        // setHomeList: (lists) => dispatch(setHomeList(lists)),
+        // setHomeList: (lists) => setHomeList(lists)(dispatch),//Promise的写法
+        setHomeList: (lists) => dispatch(setHomeList(lists)),
     }
 }
 

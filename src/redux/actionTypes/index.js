@@ -16,13 +16,19 @@ const USER = {
 
 };
 const HOME = {
-    HOME_LIST: Symbol,//首页列表数据
+    HOME_LIST: Symbol(),//首页列表数据
+};
+
+const COMMUNITY = {
+    COMM_ADD: Symbol(),//加一
+    COMM_SUB: Symbol(),
 };
 
 const actionTypes = {
     ...REQUEST,
     ...USER,
     ...HOME,
+    ...COMMUNITY,
 };
 
 export default actionTypes;

@@ -23,12 +23,12 @@ const Navigator = StackNavigator(
         //         header: null
         //     }
         // },
-        LoginPage: {
-            screen: LoginPage,
-            navigationOptions: {
-                header: null
-            }
-        },
+        // LoginPage: {
+        //     screen: LoginPage,
+        //     navigationOptions: {
+        //         header: null
+        //     }
+        // },
 
         MainScreen: {
             screen: TabNavigator,//主页
